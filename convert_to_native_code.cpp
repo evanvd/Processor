@@ -2,31 +2,33 @@
 #include <stdlib.h>
 #include <string.h>
 #include "convert_to_native_code.h"
+
+
 void ConvertToNative(asm_t* assembler)
 {
     for (size_t index = 0; index < assembler->size; index++)
     {
-        assembler->native_code[index] = NativeTranslator(assembler->asm_code[index]);
+        NativeTranslator(assembler->native_code, assembler->asm_code[index], &index);
     }
-    
 }
 
-char* NativeTranslator(char* assembler_text)
+assembler_err NativeTranslator(char** native_code, char* assembler_text, size_t* index)
 {
     if (strcmp(assembler_text, "POP"))
     {
-        return "1";
+        native_code[*index] = "1";
     }
     else if (strcmp(assembler_text, "DUMP"))
     {
-        return "2";
+        native_code[*index] = "2";
     }
     else if (strcmp(assembler_text, "PUSH"))
     {
-        return "3";
+        native_code[*index] = "3";
     }
-    else if (strcmp(assembler_text, "PUSH"))
+    else 
     {
-        return "3";
+        native_code[*index] = "хуй";
     }    
+    return ReadError;
 }

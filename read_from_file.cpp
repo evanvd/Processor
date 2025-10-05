@@ -49,7 +49,7 @@ size_t NumLines(const char* filename)
         }
     }
     fclose(file);
-    return lines;
+    return lines + 1;
 }
 
 void AssemblerDestroy(asm_t* assembler)
