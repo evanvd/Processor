@@ -6,7 +6,8 @@ void PrintStringMatrix(char** data, const size_t size)
 {
     for(size_t index = 0; index < size; index++)
     {
-        printf("%s\n", data[index]);
+        printf("%s", data[index]);
+        printf("\n");
     }
 }
 int main()

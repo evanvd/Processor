@@ -25,13 +25,11 @@ assembler_err NativeTranslator(char** native_code, char* assembler_text, size_t*
     {
         native_code[*index] = "2";
         return NoErr;
-        
     }
     else if (strcmp(assembler_text, "PUSH") == 0)
     {
         native_code[*index] = "3";
         return NoErr; 
     }
-    
     return ReadError;
 }

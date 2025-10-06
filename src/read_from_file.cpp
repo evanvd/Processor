@@ -10,7 +10,14 @@ void GetFromFile(asm_t* assembler)
     size_t buffer_size = 0;
     for (size_t index = 0; index < assembler->size; index++)
     {
-        getline(&assembler->asm_code[index], &buffer_size, assembler->file);
+        ssize_t read = getline(&assembler->asm_code[index], &buffer_size, assembler->file);
+        if (read != -1) 
+        {
+            if (read > 0 && assembler->asm_code[index][read - 1] == '\n') 
+            {
+                assembler->asm_code[index][read - 1] = '\0';
+            }
+        }
     }
 }
 
