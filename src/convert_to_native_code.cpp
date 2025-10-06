@@ -28,6 +28,7 @@ assembler_err NativeTranslator(char** native_code, char* assembler_text, size_t*
     }
     else if (strcmp(assembler_text, "PUSH") == 0)
     {
+        //native_code = (char**)realloc(->size);
         native_code[*index] = "3";
         return NoErr; 
     }

@@ -5,7 +5,8 @@ struct asm_t
     size_t size = 0;
     char **asm_code = NULL;
     char **native_code = NULL;
-    FILE *file = NULL;
+    FILE *asm_file = NULL;
+    FILE *native_file =NULL;
 };
 
 enum assembler_err

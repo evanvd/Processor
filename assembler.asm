@@ -1,5 +1,0 @@
-DUMP
-POP
-DUMP
-POP
-PUSH

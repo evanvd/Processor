@@ -15,8 +15,7 @@ int main()
     asm_t assembler;
     InitAssembler(&assembler,"assembler.asm");
     GetFromFile(&assembler);
-    PrintStringMatrix(assembler.asm_code, assembler.size);
-
+    //PrintStringMatrix(assembler.asm_code, assembler.size);
     
     ConvertToNative(&assembler);
 
