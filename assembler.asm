@@ -1,4 +1,4 @@
 POP
-PUSH
 POP
 DUMP
+PUSH

@@ -13,7 +13,7 @@ TARGET = compile
 $(TARGET): $(OBJ)
 	$(CC) $(OBJ) $(FLAGS) $(INCLUDES) -o $(TARGET)
 
-execute:
+ex:
 	./$(TARGET)
 
 $(PREF_OBJ)%.o : $(PREF_SRC)%.cpp
