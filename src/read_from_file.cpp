@@ -29,7 +29,7 @@ assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* n
         return BadFilenameErr; 
     }
     data->asm_file = fopen(asm_filename,"r");
-    data->native_file = fopen(native_filename,"wr");
+    data->native_file = fopen(native_filename,"w");
     if (data->asm_file == NULL)
     {
         data->asm_code = NULL;
@@ -37,7 +37,7 @@ assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* n
     }
 
     data->asm_code = (char**)calloc(data->size, sizeof(char*));
-    data->native_code = (char**)calloc(data->size, sizeof(char*));
+    data->native_code = (int*)calloc(data->size, sizeof(int));
 
     return NoErr;
 }

@@ -9,27 +9,27 @@ void ConvertToNative(asm_t* assembler)
     {
         if(NativeTranslator(assembler->native_code, assembler->asm_code[index], &index) == ReadError)
         {
-            printf("ЛОХ");
+            printf("SYNTAX ERROR");
         }
     }
 }
 
-assembler_err NativeTranslator(char** native_code, char* assembler_text, size_t* index)
+assembler_err NativeTranslator(int* native_code, char* assembler_text, size_t* index)
 {
     if (strcmp(assembler_text, "POP") == 0)
     {
-        native_code[*index] = "1";
+        native_code[*index] = 1;
         return NoErr;
     }
     else if (strcmp(assembler_text, "DUMP") == 0)
     {
-        native_code[*index] = "2";
+        native_code[*index] = 1;
         return NoErr;
     }
     else if (strcmp(assembler_text, "PUSH") == 0)
     {
         //native_code = (char**)realloc(->size);
-        native_code[*index] = "3";
+        native_code[*index] = 3;
         return NoErr; 
     }
     return ReadError;
