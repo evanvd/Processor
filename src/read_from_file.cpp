@@ -65,7 +65,6 @@ void AssemblerDestroy(asm_t* assembler)
     for (size_t index = 0; index < assembler->size; index++)
     {
         free(assembler->asm_code[index]);
-        //free(assembler->native_code[index]);
     }
     free(assembler->asm_code);
     free(assembler->native_code);
