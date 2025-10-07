@@ -10,10 +10,11 @@ void PrintStringMatrix(char** data, const size_t size)
         printf("\n");
     }
 }
+
 int main()
 {
     asm_t assembler;
-    InitAssembler(&assembler,"assembler.asm");
+    InitAssembler(&assembler,"assembler.asm", "native_code.txt");
     GetFromFile(&assembler);
     //PrintStringMatrix(assembler.asm_code, assembler.size);
     
@@ -21,5 +22,13 @@ int main()
 
     PrintStringMatrix(assembler.native_code, assembler.size);
 
+
+    fwrite(assembler.native_code, sizeof(char*),assembler.size, assembler.native_file);
+
+    AssemblerDestroy(&assembler);
+
+    InitAssembler(&assembler,"native_code.txt", "random.txt");
+    GetFromFile(&assembler);
+    PrintStringMatrix(assembler.asm_code, assembler.size);
     AssemblerDestroy(&assembler);
 }

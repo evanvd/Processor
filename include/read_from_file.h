@@ -18,7 +18,7 @@ enum assembler_err
 };
 
 void GetFromFile(asm_t *assembler);
-assembler_err InitAssembler(asm_t *data, const char *filename);
+assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* native_filename);
 size_t NumLines(const char *filename);
 void AssemblerDestroy(asm_t *assembler);
 void WriteToFile(asm_t *assembler);

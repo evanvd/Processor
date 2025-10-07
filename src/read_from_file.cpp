@@ -21,7 +21,7 @@ void GetFromFile(asm_t* assembler)
     }
 }
 
-assembler_err InitAssembler(asm_t* data, const char* asm_filename)
+assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* native_filename)
 {
     data->size = NumLines(asm_filename);
     if (data->size == 0) 
@@ -29,7 +29,7 @@ assembler_err InitAssembler(asm_t* data, const char* asm_filename)
         return BadFilenameErr; 
     }
     data->asm_file = fopen(asm_filename,"r");
-    data->native_file = fopen(asm_filename,"w");
+    data->native_file = fopen(native_filename,"wr");
     if (data->asm_file == NULL)
     {
         data->asm_code = NULL;
