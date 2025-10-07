@@ -5,7 +5,6 @@
 
 void ConvertToNative(asm_t* assembler)
 {
-    // TODO separate asm_index for asm_code
     for (size_t native_index = 0, asm_index = 0; native_index < assembler->size; asm_index++, native_index++)
     {    
         if(NativeTranslator(assembler, assembler->asm_code[asm_index], &native_index) == ReadError)
