@@ -103,9 +103,7 @@ void StackMul(stack_t* stk)
     }
     
     int num1 = StackPop(stk); // TODO FIX POP/MUL
-    printf("%d\n", num1);
     int num2 = StackPop(stk);
-    printf("%d\n", num2);
     StackPush(stk, num1 * num2);
 }
 

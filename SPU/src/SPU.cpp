@@ -9,6 +9,7 @@ int main()
     PrintMatrix(spu.read_data,spu.size);
 
     RunCode(&spu);
+    StackDump(&spu.stack_data);
     DestroySPU(&spu);
     return 0;
 }
