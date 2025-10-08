@@ -119,4 +119,26 @@ void StackSub(stack_t* stk)
     StackPush(stk, num1 - num2);
 }
 
+void StackAdd(stack_t* stk)
+{
+    if (stk->size < 2)
+    {
+        printf("Stack empty\n");
+        return ;
+    }
+    int num1 = StackPop(stk);
+    int num2 = StackPop(stk);
+    StackPush(stk, num1 + num2);
+}
+void StackDiv(stack_t* stk)
+{
+    if (stk->size < 2)
+    {
+        printf("Stack empty\n");
+        return ;
+    }
+    int num1 = StackPop(stk);
+    int num2 = StackPop(stk);
+    StackPush(stk, num1 / num2);
+}
 //TODO verify

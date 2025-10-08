@@ -5,7 +5,7 @@
 
 void RunCode(processor_t* spu)
 {
-    for (; spu->operation_index < spu->size; spu->operation_index++)
+    for (; spu->instruction_pointer < spu->size; spu->instruction_pointer++)
     {
         CallOperation(spu);
     }
@@ -14,25 +14,25 @@ void RunCode(processor_t* spu)
 
 void CallOperation(processor_t* spu)
 {
-    if(spu->read_data[spu->operation_index] == OP_PUSH)
+    if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
-        StackPush(&spu->stack_data, spu->read_data[spu->operation_index++]);
+        StackPush(&spu->stack_data, spu->read_data[spu->instruction_pointer++]);
     }
     
-    else if(spu->read_data[spu->operation_index] == OP_POP)
+    else if(spu->read_data[spu->instruction_pointer] == OP_POP)
     {
         printf("%d\n", StackPop(&spu->stack_data));
     }
     
-    else if(spu->read_data[spu->operation_index] == OP_DUMP)
+    else if(spu->read_data[spu->instruction_pointer] == OP_DUMP)
     {
         StackDump(&spu->stack_data);
     }
-    else if (spu->read_data[spu->operation_index] == OP_MUL)
+    else if (spu->read_data[spu->instruction_pointer] == OP_MUL)
     {
         StackMul(&spu->stack_data);
     }
-    else if (spu->read_data[spu->operation_index] == OP_SUB)
+    else if (spu->read_data[spu->instruction_pointer] == OP_SUB)
     {
         StackSub(&spu->stack_data);
     }
