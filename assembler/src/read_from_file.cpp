@@ -11,12 +11,9 @@ void GetFromFile(asm_t* assembler)
     for (size_t index = 0; index < assembler->size; index++)
     {
         ssize_t read = getline(&assembler->asm_code[index], &buffer_size, assembler->asm_file);
-        if (read != -1) 
+        if (read > 0 && assembler->asm_code[index][read - 1] == '\n') 
         {
-            if (read > 0 && assembler->asm_code[index][read - 1] == '\n') 
-            {
-                assembler->asm_code[index][read - 1] = '\0';
-            }
+           assembler->asm_code[index][read - 1] = '\0';
         }
     }
 }
