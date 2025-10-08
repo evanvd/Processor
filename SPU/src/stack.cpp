@@ -121,36 +121,4 @@ void StackSub(stack_t* stk)
     StackPush(stk, num1 - num2);
 }
 
-void CallFromConsole(stack_t* stk, char* console_input)
-{
-    if(strcmp(console_input, "PUSH") == 0)
-    {
-        int push_stack;
-        scanf("%d",&push_stack);
-        StackPush(stk, push_stack);
-    }
-    
-    else if(strcmp(console_input,"POP") == 0)
-    {
-        printf("%d\n", StackPop(stk));
-    }
-    
-    else if(strcmp(console_input, "DUMP") == 0)
-    {
-        StackDump(stk);
-    }
-    else if (strcmp(console_input, "MUL") == 0)
-    {
-        StackMul(stk);
-    }
-    else if (strcmp(console_input, "SUB") == 0)
-    {
-        StackSub(stk);
-    }
-    else
-    {
-        printf("unknown command\n");
-    }
-}
-
 //TODO verify

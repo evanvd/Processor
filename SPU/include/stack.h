@@ -13,6 +13,14 @@ enum stackError
     Nullstack = 3
 };
 
+typedef struct stack_t
+{
+    int* stack = {};
+    size_t size = 0;
+    size_t capacity = 0;
+    stackError stack_error = NoErr;
+} stack_t;
+
 struct processor_t
 {
     int* read_data ={};
@@ -21,13 +29,7 @@ struct processor_t
     stack_t stack_data = {};
 };
 
-typedef struct stack_t
-{
-    int* stack = {};
-    size_t size = 0;
-    size_t capacity = 0;
-    stackError stack_error = NoErr;
-} stack_t;
+
 
 void StackInit(stack_t* stk, size_t capacity);
 void StackDump(stack_t* stk);
