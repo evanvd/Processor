@@ -10,8 +10,9 @@ int main()
     GetFromFile(&assembler);
     
     ConvertToNative(&assembler);
-
+    printf("ar");
     WriteToFile(&assembler);
+    printf("\nar");
 
     AssemblerDestroy(&assembler);
 }
