@@ -1,5 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h>
+#ifndef STACK_H
+#define STACK_H
 
 const int CANARY_VALUE = 0xC0FFEE;
 const int POISON_VALUE = 0xDEAD;
@@ -26,6 +28,7 @@ struct processor_t
     int* read_data ={};
     FILE* native_file = NULL;
     size_t size = 0;
+    size_t operation_index = 0;
     stack_t stack_data = {};
 };
 
@@ -40,3 +43,5 @@ stackError StackVerify(stack_t* stk);
 
 void CallFromConsole(stack_t* stk, char* console_input);
 void StackMul(stack_t* stk);
+void StackSub(stack_t* stk);
+#endif 
