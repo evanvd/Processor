@@ -61,8 +61,11 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text, size_t* n
 
 bool ComparePush(char* assembler_text, asm_t* assembler, size_t* native_index)
 {
+    //TODO sscanf(assembler_text, "%4s", buffer); strcmp(buffer, "PUSH")
+
     if(assembler_text[0] == 'P' && assembler_text[1] == 'U' && assembler_text[2] == 'S' && assembler_text[3] == 'H')
     {
+        // TODO sscanf(asm_text, "%d", ...)
         char* push_value = (char*)calloc(strlen(assembler_text) - 3, sizeof(char));
         for (size_t index = 5; index < strlen(assembler_text); index++)
         {
