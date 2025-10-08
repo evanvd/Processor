@@ -16,5 +16,5 @@ enum op_code
 };
 
 void ConvertToNative(asm_t* assembler);
-assembler_err NativeTranslator(asm_t* assembler, char* assembler_text, size_t* index);
-bool ComparePush(char* assembler_text, asm_t* assembler, size_t* asm_index);
+assembler_err NativeTranslator(asm_t* assembler, char* assembler_text);
+bool ComparePush(char* assembler_text, asm_t* assembler);

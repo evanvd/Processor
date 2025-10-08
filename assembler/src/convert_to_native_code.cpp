@@ -5,61 +5,65 @@
 
 void ConvertToNative(asm_t* assembler)
 {
-    for (size_t native_index = 0, asm_index = 0; native_index < assembler->size; asm_index++, native_index++)
+    assembler->instruction_pointer = 0;
+    for (size_t asm_index = 0; assembler->instruction_pointer < assembler->size; asm_index++, ++assembler->instruction_pointer)
     {    
-        if(NativeTranslator(assembler, assembler->asm_code[asm_index], &native_index) == ReadError)
+        printf("native index %lu, asm_index %lu size %lu code %d\n", assembler->instruction_pointer, asm_index, assembler->size, 
+            assembler->native_code[assembler->instruction_pointer]);
+        if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == ReadError)
         {
             printf("SYNTAX ERROR"); //TODO ABORT PROGRAM WHILE ERROR
         }
-        printf("native index %lu, asm_index %lu size %lu code %d\n", native_index, asm_index, assembler->size, assembler->native_code[native_index]);
+        printf("native index %lu, asm_index %lu size %lu code %d\n", assembler->instruction_pointer, asm_index, assembler->size, 
+            assembler->native_code[assembler->instruction_pointer]);
     }
 }
 
-assembler_err NativeTranslator(asm_t* assembler, char* assembler_text, size_t* native_index)
+assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
 {
     if (strcmp(assembler_text, "POP") == 0)
     {
-        assembler->native_code[*native_index] = OP_POP;
+        assembler->native_code[assembler->instruction_pointer] = OP_POP;
         return NoErr;
     }
     else if (strcmp(assembler_text, "DUMP") == 0)
     {
-        assembler->native_code[*native_index] = OP_DUMP;
+        assembler->native_code[assembler->instruction_pointer] = OP_DUMP;
         return NoErr;
     }
     else if (strcmp(assembler_text, "MUL") == 0)
     {
-        assembler->native_code[*native_index] = OP_MUL;
+        assembler->native_code[assembler->instruction_pointer] = OP_MUL;
         return NoErr;
     }
     else if (strcmp(assembler_text, "SUB") == 0)
     {
-        assembler->native_code[*native_index] = OP_SUB;
+        assembler->native_code[assembler->instruction_pointer] = OP_SUB;
         return NoErr;
     }
     else if (strcmp(assembler_text, "OUT") == 0)
     {
-        assembler->native_code[*native_index] = OP_OUT;
+        assembler->native_code[assembler->instruction_pointer] = OP_OUT;
         return NoErr;
     }
     else if (strcmp(assembler_text, "DIV") == 0)
     {
-        assembler->native_code[*native_index] = OP_DIV;
+        assembler->native_code[assembler->instruction_pointer] = OP_DIV;
         return NoErr;
     }
     else if (strcmp(assembler_text, "HLT") == 0)
     {
-        assembler->native_code[*native_index] = OP_HLT;
+        assembler->native_code[assembler->instruction_pointer] = OP_HLT;
         return NoErr;
     }
-    else if (ComparePush(assembler_text, assembler, native_index))
+    else if (ComparePush(assembler_text, assembler))
     {
         return NoErr; 
     }
     return ReadError;
 }
 
-bool ComparePush(char* assembler_text, asm_t* assembler, size_t* native_index)
+bool ComparePush(char* assembler_text, asm_t* assembler)
 {
     //TODO sscanf(assembler_text, "%4s", buffer); strcmp(buffer, "PUSH")
 
@@ -74,9 +78,9 @@ bool ComparePush(char* assembler_text, asm_t* assembler, size_t* native_index)
         int value = atoi(push_value);
         free(push_value);
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
-        assembler->native_code[*native_index] = OP_PUSH; 
-        assembler->native_code[++*native_index] = value;
-        assembler->size += 1; //TODO remove fault
+        assembler->native_code[assembler->instruction_pointer] = OP_PUSH; 
+        assembler->native_code[++assembler->instruction_pointer] = value;
+        assembler->size += 1;
         return true;
     }
     return false;
