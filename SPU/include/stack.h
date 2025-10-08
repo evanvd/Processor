@@ -10,18 +10,24 @@ enum stackError
     NoErr = -1,
     LeftCanaryErr = 1,
     RightCanaryErr = 2,
-    NullData = 3
+    Nullstack = 3
 };
 
 struct processor_t
 {
-    int* data ={};
+    int* read_data ={};
     FILE* native_file = NULL;
+    size_t size = 0;
+    stack_t stack_data = {};
+};
+
+typedef struct stack_t
+{
     int* stack = {};
     size_t size = 0;
     size_t capacity = 0;
     stackError stack_error = NoErr;
-};
+} stack_t;
 
 void StackInit(stack_t* stk, size_t capacity);
 void StackDump(stack_t* stk);
