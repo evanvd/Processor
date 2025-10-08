@@ -11,6 +11,7 @@ void ConvertToNative(asm_t* assembler)
         {
             printf("SYNTAX ERROR"); //TODO ABORT PROGRAM WHILE ERROR
         }
+        printf("native index %lu, asm_index %lu size %lu code %d\n", native_index, asm_index, assembler->size, assembler->native_code[native_index]);
     }
 }
 
@@ -63,16 +64,16 @@ bool ComparePush(char* assembler_text, asm_t* assembler, size_t* native_index)
     if(assembler_text[0] == 'P' && assembler_text[1] == 'U' && assembler_text[2] == 'S' && assembler_text[3] == 'H')
     {
         char* push_value = (char*)calloc(strlen(assembler_text) - 3, sizeof(char));
-        for (size_t index = 4; index < strlen(assembler_text); index++)
+        for (size_t index = 5; index < strlen(assembler_text); index++)
         {
-            push_value[index - 4] = assembler_text[index]; 
+            push_value[index - 5] = assembler_text[index];
         }
         int value = atoi(push_value);
         free(push_value);
-        //assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
-        assembler->native_code[*native_index] = 3; 
+        assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
+        assembler->native_code[*native_index] = OP_PUSH; 
         assembler->native_code[++*native_index] = value;
-        // assembler->size += 1; //TODO remove fault
+        assembler->size += 1; //TODO remove fault
         return true;
     }
     return false;

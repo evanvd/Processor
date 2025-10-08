@@ -5,6 +5,7 @@
 struct asm_t
 {
     size_t size = 0;
+    size_t size_file = 0;
     char **asm_code = NULL;
     int* native_code = NULL;
     FILE *asm_file = NULL;

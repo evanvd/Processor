@@ -24,6 +24,7 @@ void GetFromFile(asm_t* assembler)
 assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* native_filename)
 {
     data->size = NumLines(asm_filename);
+    data->size_file = data->size;
     if (data->size == 0) 
     {
         return BadFilenameErr; 
@@ -62,7 +63,7 @@ size_t NumLines(const char* asm_filename)
 
 void AssemblerDestroy(asm_t* assembler)
 {
-    for (size_t index = 0; index < assembler->size; index++)
+    for(size_t index = 0; index < assembler->size_file; index++)
     {
         free(assembler->asm_code[index]);
     }
