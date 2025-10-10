@@ -29,6 +29,8 @@ struct processor_t
     FILE* native_file = NULL;
     size_t size = 0;
     size_t instruction_pointer = 0;
+    int RAX;
+    int RBX;
     stack_t stack_data = {};
 };
 

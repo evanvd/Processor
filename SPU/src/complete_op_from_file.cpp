@@ -38,6 +38,6 @@ void CallOperation(processor_t* spu)
     }
     else
     {
-        printf("unknown command\n");
+        printf("SYNTAX ERROR\n");
     }
 }
