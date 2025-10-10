@@ -67,12 +67,10 @@ bool ComparePush(char* assembler_text, asm_t* assembler)
 {
     if(strncmp(assembler_text, "PUSH", 4) == 0)
     {  
-        int value = 1;
-        sscanf(assembler_text, "%d", &value);
-        printf("push value %d\n", value);
+        char* number = assembler_text + 4;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_PUSH; 
-        assembler->native_code[++assembler->instruction_pointer] = value;
+        assembler->native_code[++assembler->instruction_pointer] = atoi(number);
         assembler->size += 1;
         return true;
     }
