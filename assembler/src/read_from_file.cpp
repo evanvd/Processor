@@ -36,7 +36,6 @@ assembler_err InitAssembler(asm_t* data, const char* asm_filename, const char* n
 
     data->asm_code = (char**)calloc(data->size, sizeof(char*));
     data->native_code = (int*)calloc(data->size, sizeof(int));
-
     return NoErr;
 }
 
