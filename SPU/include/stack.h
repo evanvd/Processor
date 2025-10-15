@@ -25,15 +25,13 @@ typedef struct stack_t
 
 struct processor_t
 {
-    int* read_data ={};
+    int* read_data = {};
     FILE* native_file = NULL;
     size_t size = 0;
+    int* regs = {};
     size_t instruction_pointer = 0;
-    int RAX;
-    int RBX;
     stack_t stack_data = {};
 };
-
 
 
 void StackInit(stack_t* stk, size_t capacity);

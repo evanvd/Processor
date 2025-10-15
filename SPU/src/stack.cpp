@@ -23,6 +23,27 @@ void StackInit(stack_t* stk,size_t capacity)
     stk->stack[stk->capacity + 1] = CANARY_VALUE;
 }
 
+stackError StackVerify(stack_t* stk) // TODO verify in main
+{
+    if (stk == NULL) return Nullstack;
+    if (stk->stack == NULL) return Nullstack;
+    
+    if (stk->stack[stk->capacity + 1] != CANARY_VALUE)
+    {
+        printf("Right canary value has been changed\n");
+        stk->stack_error = RightCanaryErr;  
+        return RightCanaryErr;      
+    }
+
+    else if (stk->stack[0] != CANARY_VALUE)
+    {
+        printf("Left canary value has been changed\n");
+        stk->stack_error = LeftCanaryErr;
+        return LeftCanaryErr;
+    }
+    return NoErr;
+}
+
 void StackDump(stack_t* stk)
 {
     StackVerify(stk);
@@ -72,28 +93,6 @@ int StackPop(stack_t* stk)
     StackVerify(stk);
     return temp;
 }
-
-stackError StackVerify(stack_t* stk) // TODO verify in main
-{
-    if (stk == NULL) return Nullstack;
-    if (stk->stack == NULL) return Nullstack;
-    
-    if (stk->stack[stk->capacity + 1] != CANARY_VALUE)
-    {
-        printf("Right canary value has been changed\n");
-        stk->stack_error = RightCanaryErr;  
-        return RightCanaryErr;      
-    }
-
-    else if (stk->stack[0] != CANARY_VALUE)
-    {
-        printf("Left canary value has been changed\n");
-        stk->stack_error = LeftCanaryErr;
-        return LeftCanaryErr;
-    }
-    return NoErr;
-}
-
 void StackMul(stack_t* stk)
 {
     if (stk->size < 2)

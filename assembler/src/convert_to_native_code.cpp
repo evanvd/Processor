@@ -60,16 +60,67 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
     {
         return NoErr; 
     }
+    else if (ComparePopR(assembler_text, assembler))
+    {
+        return NoErr; 
+    }
+    else if (ComparePushR(assembler_text, assembler))
+    {
+        return NoErr; 
+    }
     return ReadError;
 }
 
+
 bool ComparePush(char* assembler_text, asm_t* assembler)
 {
-    if(strncmp(assembler_text, "PUSH", 4) == 0)
+    if(strncmp(assembler_text, "PUSH ", 5) == 0)
     {  
         char* number = assembler_text + 4;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_PUSH; 
+        assembler->native_code[++assembler->instruction_pointer] = atoi(number);
+        assembler->size += 1;
+        return true;
+    }
+    return false;
+}
+
+bool ComparePushR(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "POSHR", 5) == 0)
+    {  
+        int reg = (int)assembler_text[6] - (int)'A' + 1; // specific of processor
+        assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
+        assembler->native_code[assembler->instruction_pointer] = OP_PUSHR; 
+        assembler->native_code[++assembler->instruction_pointer] = reg;
+        assembler->size += 1;
+        return true;
+    }
+    return false;
+}
+
+bool ComparePopR(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "POPR", 4) == 0)
+    {  
+        int reg = (int)assembler_text[5] - (int)'A' + 1; // specific of processor
+        assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
+        assembler->native_code[assembler->instruction_pointer] = OP_POPR; 
+        assembler->native_code[++assembler->instruction_pointer] = reg;
+        assembler->size += 1;
+        return true;
+    }
+    return false;
+}
+
+bool CompareJump(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "JMP", 3) == 0)
+    {  
+        char* number = assembler_text + 4;
+        assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
+        assembler->native_code[assembler->instruction_pointer] = OP_JMP; 
         assembler->native_code[++assembler->instruction_pointer] = atoi(number);
         assembler->size += 1;
         return true;

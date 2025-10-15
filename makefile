@@ -9,7 +9,7 @@ SOURCES = $(wildcard $(PREF_SRC)*.cpp)
 OBJ = $(patsubst $(PREF_SRC)%.cpp, $(PREF_OBJ)%.o, $(SOURCES))
 
 TARGET_ASM = compile
-TARGET_SPU = spu
+TARGET_SPU = spu.out
 
 
 $(TARGET_ASM): $(OBJ)
@@ -22,7 +22,7 @@ $(PREF_OBJ)%.o : $(PREF_SRC)%.cpp
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 spu:
-	$(CC) SPU/src/io.cpp SPU/src/SPU.cpp SPU/src/stack.cpp SPU/src/complete_op_from_file.cpp $(FLAGS) -I./SPU/include -o $(TARGET_SPU)
+	$(CC) SPU/src/io.cpp SPU/src/SPU.cpp SPU/src/operation.cpp SPU/src/stack.cpp SPU/src/complete_op_from_file.cpp $(FLAGS) -I./SPU/include -o $(TARGET_SPU)
 clean:
 	rm -f $(TARGET_ASM) $(PREF_OBJ)*.o
 	rm -f $(TARGET_SPU)
