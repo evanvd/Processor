@@ -88,9 +88,9 @@ bool ComparePush(char* assembler_text, asm_t* assembler)
 
 bool ComparePushR(char* assembler_text, asm_t* assembler)
 {
-    if(strncmp(assembler_text, "POSHR", 5) == 0)
+    if(strncmp(assembler_text, "PUSHR", 5) == 0)
     {  
-        int reg = (int)assembler_text[6] - (int)'A' + 1; // specific of processor
+        int reg = (int)assembler_text[6] - (int)'A'; // specific of processor
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_PUSHR; 
         assembler->native_code[++assembler->instruction_pointer] = reg;
@@ -104,7 +104,7 @@ bool ComparePopR(char* assembler_text, asm_t* assembler)
 {
     if(strncmp(assembler_text, "POPR", 4) == 0)
     {  
-        int reg = (int)assembler_text[5] - (int)'A' + 1; // specific of processor
+        int reg = (int)assembler_text[5] - (int)'A'; // specific of processor
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_POPR; 
         assembler->native_code[++assembler->instruction_pointer] = reg;

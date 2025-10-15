@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "complete_op_from_file.h"
+#include "operation.h"
 
 void RunCode(processor_t* spu)
 {
@@ -9,7 +10,6 @@ void RunCode(processor_t* spu)
     {
         CallOperation(spu);
     }
-    
 }
 
 void CallOperation(processor_t* spu)
@@ -35,6 +35,18 @@ void CallOperation(processor_t* spu)
     else if (spu->read_data[spu->instruction_pointer] == OP_SUB)
     {
         StackSub(&spu->stack_data);
+    }
+    else if (spu->read_data[spu->instruction_pointer] == OP_POPR)
+    {
+        StackPOPR(spu, spu->read_data[spu->instruction_pointer++]);
+    }
+    else if (spu->read_data[spu->instruction_pointer] == OP_PUSHR)
+    {
+       StackPUSHR(spu, spu->read_data[spu->instruction_pointer++]);
+    }
+    else if (spu->read_data[spu->instruction_pointer] == OP_JMP)
+    {
+        // TODO JMP
     }
     else
     {

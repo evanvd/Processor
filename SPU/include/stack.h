@@ -28,7 +28,7 @@ struct processor_t
     int* read_data = {};
     FILE* native_file = NULL;
     size_t size = 0;
-    int* regs = {};
+    int regs [6] = {};
     size_t instruction_pointer = 0;
     stack_t stack_data = {};
 };
@@ -36,12 +36,7 @@ struct processor_t
 
 void StackInit(stack_t* stk, size_t capacity);
 void StackDump(stack_t* stk);
-void StackPush(stack_t* data, int element);
-int StackPop(stack_t* data);
-void StackDestroy(stack_t* stk);
 stackError StackVerify(stack_t* stk);
+void StackDestroy(stack_t* stk);
 
-void CallFromConsole(stack_t* stk, char* console_input);
-void StackMul(stack_t* stk);
-void StackSub(stack_t* stk);
 #endif 

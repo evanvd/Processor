@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "io.h"
 #include "stack.h"
+#include "operation.h"
 
 void InitSPU(processor_t* spu, const char* filename)
 {

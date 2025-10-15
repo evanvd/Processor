@@ -1,3 +1,4 @@
-.o
 compile
-/build
+/assembler/build
+/.vscode
+spu.out
