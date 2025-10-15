@@ -27,11 +27,11 @@ void CallOperation(processor_t* spu)
     };
     
 
-    for (size_t index = 0; index < 4; index++)
+    for (size_t index = 0; index < 5; index++)
     {
         if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
         {
-            printf("SUCCESS\n");
+            printf("SUCCESS op_index %d\n", simple_op[index].operation_code);
             simple_op[index].operation(&spu->stack_data);
         }
     }
@@ -43,14 +43,18 @@ void CallOperation(processor_t* spu)
     {
         printf("%d\n", StackPop(&spu->stack_data));
     }
-    else if (spu->read_data[spu->instruction_pointer] == OP_MUL)
-    {
-        StackMul(&spu->stack_data);
-    }
-    else if (spu->read_data[spu->instruction_pointer] == OP_SUB)
-    {
-        StackSub(&spu->stack_data);
-    }
+    // else if(spu->read_data[spu->instruction_pointer] == OP_DUMP)
+    // {
+    //     StackDump(&spu->stack_data);
+    // }
+    // else if (spu->read_data[spu->instruction_pointer] == OP_MUL)
+    // {
+    //     StackMul(&spu->stack_data);
+    // }
+    // else if (spu->read_data[spu->instruction_pointer] == OP_SUB)
+    // {
+    //     StackSub(&spu->stack_data);
+    // }
     else if (spu->read_data[spu->instruction_pointer] == OP_POPR)
     {
         StackPOPR(spu, spu->read_data[++spu->instruction_pointer]);
