@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "stack.h"
 
+#ifndef OPERATION_H
+#define OPERATION_H
+
 void StackPush(stack_t* spu, int element);
 int StackPop(stack_t* data);
 
@@ -14,3 +17,4 @@ void StackPOPR(processor_t* spu, int reg);
 
 void StackJump(processor_t* spu, int adr);
 void StackJB (processor_t* spu, int adr);
+#endif

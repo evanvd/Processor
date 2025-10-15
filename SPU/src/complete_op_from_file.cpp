@@ -1,9 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h"
 #include "complete_op_from_file.h"
-#include "operation.h"
 
+static operation simple_op[] = 
+{
+    {.operation_code = OP_DUMP, .operation = StackDump},
+    {.operation_code = OP_MUL, .operation = StackMul},
+    {.operation_code = OP_DIV, .operation = StackDiv},
+    {.operation_code = OP_ADD, .operation = StackAdd},
+    {.operation_code = OP_SUB, .operation = StackSub},
+    
+};
+
+static arg_operation args_operation [] =
+{
+    {.operation_code = OP_JMP, .operation = StackJump},
+    {.operation_code = OP_PUSHR, .operation = StackPUSHR},
+    {.operation_code = OP_POPR, .operation = StackPOPR},
+    {.operation_code = OP_JB, .operation = StackJB},
+};
+
+const size_t simple_op_count = 5;
+const size_t args_op_count = 4;
 
 void RunCode(processor_t* spu)
 {
@@ -16,24 +34,10 @@ void RunCode(processor_t* spu)
 
 void CallOperation(processor_t* spu)
 {
-    operation simple_op[] = 
-    {
-        {.operation_code = OP_DUMP, .operation = StackDump},
-        {.operation_code = OP_MUL, .operation = StackMul},
-        {.operation_code = OP_DIV, .operation = StackDiv},
-        {.operation_code = OP_ADD, .operation = StackAdd},
-        {.operation_code = OP_SUB, .operation = StackSub},
-        
-    };
-    args_operation args_operation [] =
-    {
-        {.operation_code = OP_JMP, .operation = StackJump},
-        {.operation_code = OP_PUSHR, .operation = StackPUSHR},
-        {.operation_code = OP_POPR, .operation = StackPOPR},
-        {.operation_code = OP_JB, .operation = StackJB},
-    };
+    extern operation simple_op[];
+    extern arg_operation args_operation [];
 
-    for (size_t index = 0; index < 5; index++)
+    for (size_t index = 0; index < simple_op_count; index++)
     {
         if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
         {
@@ -42,7 +46,7 @@ void CallOperation(processor_t* spu)
         }
     }
     
-    for (size_t index = 0; index < 4; index++)
+    for (size_t index = 0; index < args_op_count; index++)
     {
         if(spu->read_data[spu->instruction_pointer] == args_operation[index].operation_code)
         {

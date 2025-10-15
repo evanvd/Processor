@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "io.h"
+#include "stack.h"
+#include "operation.h"
 
 enum op_code
 {
@@ -23,16 +25,19 @@ typedef void (*operation_fn_t) (stack_t*);
 typedef void (*opr_args_fn_t) (processor_t*, int);
 
 
+
 struct operation
 {
     op_code operation_code;
     operation_fn_t operation = NULL;
 };
 
-struct args_operation
+struct arg_operation
 {
     op_code operation_code;
     opr_args_fn_t operation = NULL;
 };
 void RunCode(processor_t* spu);
 void CallOperation(processor_t* spu);
+
+
