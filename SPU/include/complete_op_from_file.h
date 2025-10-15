@@ -18,13 +18,12 @@ enum op_code
     OP_JMP = 50 
 };
 
-typedef void (*operation_fn_t) (processor_t*, int);
+typedef void (*operation_fn_t) (stack_t*);
 
 struct operation
 {
     op_code operation_code;
     operation_fn_t operation = NULL;
 };
-//TODO do struct with that
 void RunCode(processor_t* spu);
 void CallOperation(processor_t* spu);

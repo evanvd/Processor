@@ -16,19 +16,32 @@ void RunCode(processor_t* spu)
 
 void CallOperation(processor_t* spu)
 {
+    operation simple_op[] = 
+    {
+        {.operation_code = OP_DUMP, .operation = StackDump},
+        {.operation_code = OP_MUL, .operation = StackMul},
+        {.operation_code = OP_DIV, .operation = StackDiv},
+        {.operation_code = OP_ADD, .operation = StackAdd},
+        {.operation_code = OP_SUB, .operation = StackSub},
+        
+    };
+    
+
+    for (size_t index = 0; index < 4; index++)
+    {
+        if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
+        {
+            printf("SUCCESS\n");
+            simple_op[index].operation(&spu->stack_data);
+        }
+    }
     if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
         StackPush(&spu->stack_data, spu->read_data[++spu->instruction_pointer]);
-    }
-    
+    }  
     else if(spu->read_data[spu->instruction_pointer] == OP_POP)
     {
         printf("%d\n", StackPop(&spu->stack_data));
-    }
-    
-    else if(spu->read_data[spu->instruction_pointer] == OP_DUMP)
-    {
-        StackDump(&spu->stack_data);
     }
     else if (spu->read_data[spu->instruction_pointer] == OP_MUL)
     {
@@ -40,11 +53,12 @@ void CallOperation(processor_t* spu)
     }
     else if (spu->read_data[spu->instruction_pointer] == OP_POPR)
     {
-        StackPOPR(spu, spu->read_data[spu->instruction_pointer++]);
+        StackPOPR(spu, spu->read_data[++spu->instruction_pointer]);
     }
     else if (spu->read_data[++spu->instruction_pointer] == OP_PUSHR)
     {
-       StackPUSHR(spu, spu->read_data[++spu->instruction_pointer]);
+        printf("SUCCESS\n");
+        StackPUSHR(spu, spu->read_data[++spu->instruction_pointer]);
     }
     else if (spu->read_data[spu->instruction_pointer] == OP_JMP)
     {

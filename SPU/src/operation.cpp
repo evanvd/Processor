@@ -10,7 +10,7 @@ void StackPush(stack_t* stk, int element)
         stk->capacity++;
         stk->stack[stk->capacity + 1] = CANARY_VALUE;
     }
-    //printf("el %d\n",element);
+    printf("\tel %d\n",element);
     stk->size++;
     stk->stack[stk->size] = element;
     StackVerify(stk);    

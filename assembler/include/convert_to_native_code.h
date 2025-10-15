@@ -18,6 +18,14 @@ enum op_code
     OP_JMP = 50 
 };
 
+typedef void (*operation_fn_t) (asm_t*, int);
+
+struct operation
+{
+    const char* op_name = NULL;
+    op_code operation_code;
+};
+
 void ConvertToNative(asm_t* assembler);
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text);
 bool ComparePush(char* assembler_text, asm_t* assembler);
