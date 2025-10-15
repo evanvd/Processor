@@ -28,7 +28,7 @@ struct processor_t
     int* read_data = {};
     FILE* native_file = NULL;
     size_t size = 0;
-    int regs [6] = {};
+    int regs [50] = {};
     size_t instruction_pointer = 0;
     stack_t stack_data = {};
 };

@@ -10,6 +10,7 @@ void StackPush(stack_t* stk, int element)
         stk->capacity++;
         stk->stack[stk->capacity + 1] = CANARY_VALUE;
     }
+    //printf("el %d\n",element);
     stk->size++;
     stk->stack[stk->size] = element;
     StackVerify(stk);    
@@ -78,12 +79,13 @@ void StackDiv(stack_t* stk)
 }
 void StackPUSHR(processor_t* spu, int reg)
 {
+    printf("pushr %d\n",reg);
     if (spu->stack_data.capacity == spu->stack_data.size)
     {
         spu->stack_data.stack = (int*)realloc(spu->stack_data.stack,spu->stack_data.size);
         spu->stack_data.capacity++;
         spu->stack_data.stack[spu->stack_data.capacity + 1] = CANARY_VALUE;
-    } // TODO error syntax when reg uninit
+    } // TODO error when reg uninit
     spu->stack_data.size++;
     spu->stack_data.stack[spu->stack_data.size] = spu->regs[reg];
     StackVerify(&spu->stack_data);   
@@ -92,8 +94,8 @@ void StackPUSHR(processor_t* spu, int reg)
 void StackPOPR(processor_t* spu, int reg)
 {
     StackVerify(&spu->stack_data);
-    
-    //spu->regs[reg] = StackPop(&spu->stack_data); // TODO abort if empty stack
+    printf("popr %d\n",reg);
+    spu->regs[reg] = StackPop(&spu->stack_data); // TODO abort if empty stack
     
     StackVerify(&spu->stack_data);
 }
