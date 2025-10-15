@@ -16,6 +16,7 @@ void StackPush(stack_t* stk, int element)
     StackVerify(stk);    
 }
 
+
 int StackPop(stack_t* stk)
 {
     StackVerify(stk);
@@ -103,4 +104,14 @@ void StackPOPR(processor_t* spu, int reg)
 void StackJump(processor_t* spu, int adr)
 {
     spu->instruction_pointer = (size_t)adr;
+}
+void StackJB (processor_t* spu, int adr)
+{
+    int n1 = StackPop(&spu->stack_data);
+    int n2 = StackPop(&spu->stack_data);
+    if (n1 < n2)
+    {
+        spu->instruction_pointer = (size_t)adr;
+    }
+    
 }

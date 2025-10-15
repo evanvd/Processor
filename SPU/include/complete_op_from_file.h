@@ -15,15 +15,24 @@ enum op_code
     OP_HLT  = 9,
     OP_PUSHR = 42,
     OP_POPR = 33,
-    OP_JMP = 50 
+    OP_JMP = 50,
+    OP_JB = 52
 };
 
 typedef void (*operation_fn_t) (stack_t*);
+typedef void (*opr_args_fn_t) (processor_t*, int);
+
 
 struct operation
 {
     op_code operation_code;
     operation_fn_t operation = NULL;
+};
+
+struct args_operation
+{
+    op_code operation_code;
+    opr_args_fn_t operation = NULL;
 };
 void RunCode(processor_t* spu);
 void CallOperation(processor_t* spu);

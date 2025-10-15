@@ -25,7 +25,14 @@ void CallOperation(processor_t* spu)
         {.operation_code = OP_SUB, .operation = StackSub},
         
     };
-    
+    args_operation args_operation [] =
+    {
+        {.operation_code = OP_JMP, .operation = StackJump},
+        {.operation_code = OP_PUSHR, .operation = StackPUSHR},
+        {.operation_code = OP_POPR, .operation = StackPOPR},
+        {.operation_code = OP_JB, .operation = StackJB},
+    };
+
     for (size_t index = 0; index < 5; index++)
     {
         if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
@@ -35,7 +42,14 @@ void CallOperation(processor_t* spu)
         }
     }
     
-
+    for (size_t index = 0; index < 4; index++)
+    {
+        if(spu->read_data[spu->instruction_pointer] == args_operation[index].operation_code)
+        {
+            args_operation[index].operation(spu, spu->read_data[++spu->instruction_pointer]);
+        }
+    }
+    
     if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
         StackPush(&spu->stack_data, spu->read_data[++spu->instruction_pointer]);
@@ -43,18 +57,6 @@ void CallOperation(processor_t* spu)
     else if(spu->read_data[spu->instruction_pointer] == OP_POP)
     {
         printf("%d\n", StackPop(&spu->stack_data));
-    }
-    else if (spu->read_data[spu->instruction_pointer] == OP_POPR)
-    {
-        StackPOPR(spu, spu->read_data[++spu->instruction_pointer]);
-    }
-    else if (spu->read_data[spu->instruction_pointer] == OP_PUSHR)
-    {
-        StackPUSHR(spu, spu->read_data[++spu->instruction_pointer]);
-    }
-    else if (spu->read_data[spu->instruction_pointer] == OP_JMP)
-    {
-        StackJump(spu, spu->read_data[++spu->instruction_pointer]);
     }
     else
     {
