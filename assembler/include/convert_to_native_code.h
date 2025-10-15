@@ -15,10 +15,11 @@ enum op_code
     OP_HLT  = 9,
     OP_PUSHR = 42,
     OP_POPR = 33,
-    OP_JMP = 50 
+    OP_JMP = 50,
+    OP_JB = 52
 };
 
-typedef void (*operation_fn_t) (asm_t*, int);
+typedef bool (*args_fn) (char*, asm_t*);
 
 struct operation
 {

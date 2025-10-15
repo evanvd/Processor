@@ -65,4 +65,3 @@ void StackDestroy(stack_t* stk)
     stk->size = POISON_VALUE;
     stk->capacity = POISON_VALUE;
 }
-

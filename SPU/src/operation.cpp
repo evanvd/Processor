@@ -99,3 +99,8 @@ void StackPOPR(processor_t* spu, int reg)
     
     StackVerify(&spu->stack_data);
 }
+
+void StackJump(processor_t* spu, int adr)
+{
+    
+}

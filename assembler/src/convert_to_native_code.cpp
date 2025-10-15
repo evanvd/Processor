@@ -20,6 +20,8 @@ void ConvertToNative(asm_t* assembler)
 
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
 {
+
+    args_fn op_arg[] = {ComparePush, ComparePopR, ComparePushR, CompareJump};
     operation operation [] = 
     {
         {.op_name = "POP", .operation_code = OP_POP},
@@ -104,6 +106,26 @@ bool CompareJump(char* assembler_text, asm_t* assembler)
         char* number = assembler_text + 4;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_JMP;
+        if (number[0] = ':')
+        {
+            
+        }
+        else 
+        {
+            assembler->native_code[++assembler->instruction_pointer] = atoi(number);
+        }
+        assembler->size += 1;
+        return true;
+    }
+    return false;
+}
+bool CompareJB(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "JB", 3) == 0)
+    {  
+        char* number = assembler_text + 2;
+        assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
+        assembler->native_code[assembler->instruction_pointer] = OP_JB;
         if (number[0] = ':')
         {
             
