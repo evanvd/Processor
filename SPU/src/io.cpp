@@ -29,7 +29,6 @@ void PrintMatrix(int* data, const size_t size)
         printf("\n");
     }
 }
-//TODO DoOp
 void DestroySPU(processor_t* spu)
 {
     free(spu->read_data);

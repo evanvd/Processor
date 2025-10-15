@@ -41,17 +41,12 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
             return NoErr;
         }
     }
-    if (ComparePush(assembler_text, assembler))
+    for (size_t function_index = 0; function_index < 4; function_index++) // TODO remove magic number
     {
-        return NoErr; 
-    }
-    if (ComparePopR(assembler_text, assembler))
-    {
-        return NoErr; 
-    }
-    else if (ComparePushR(assembler_text, assembler))
-    {
-        return NoErr; 
+        if (op_arg[function_index](assembler_text, assembler))
+        {
+            return NoErr; 
+        }   
     }
     return ReadError;
 }
@@ -106,7 +101,7 @@ bool CompareJump(char* assembler_text, asm_t* assembler)
         char* number = assembler_text + 4;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_JMP;
-        if (number[0] = ':')
+        if (number[0] == ':')
         {
             
         }
@@ -126,7 +121,7 @@ bool CompareJB(char* assembler_text, asm_t* assembler)
         char* number = assembler_text + 2;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
         assembler->native_code[assembler->instruction_pointer] = OP_JB;
-        if (number[0] = ':')
+        if (number[0] == ':')
         {
             
         }

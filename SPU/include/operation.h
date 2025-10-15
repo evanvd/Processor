@@ -11,3 +11,4 @@ void StackAdd(stack_t* stk);
 void StackDiv(stack_t* stk);
 void StackPUSHR(processor_t* spu, int reg);
 void StackPOPR(processor_t* spu, int reg);
+void StackJump(processor_t* spu, int adr);

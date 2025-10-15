@@ -4,7 +4,7 @@
 
 void StackPush(stack_t* stk, int element)
 {
-    if (stk->capacity == stk->size)//TODO fix compare size
+    if (stk->capacity == stk->size)
     {
         stk->stack = (int*)realloc(stk->stack,stk->size);
         stk->capacity++;
@@ -38,7 +38,7 @@ void StackMul(stack_t* stk)
         return ;
     }
     
-    int num1 = StackPop(stk); // TODO FIX POP/MUL
+    int num1 = StackPop(stk); 
     int num2 = StackPop(stk);
     StackPush(stk, num1 * num2);
 }
@@ -102,5 +102,5 @@ void StackPOPR(processor_t* spu, int reg)
 
 void StackJump(processor_t* spu, int adr)
 {
-    
+    spu->instruction_pointer = (size_t)adr;
 }

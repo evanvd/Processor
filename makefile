@@ -15,11 +15,15 @@ TARGET_SPU = spu.out
 $(TARGET_ASM): $(OBJ)
 	$(CC) $(OBJ) $(FLAGS) $(INCLUDES) -o $(TARGET_ASM)
 
-ex:
+asm:
 	./$(TARGET_ASM)
 
 $(PREF_OBJ)%.o : $(PREF_SRC)%.cpp
 	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+
+run:
+	./$(TARGET_ASM)
+	./$(TARGET_SPU)
 
 spu:
 	$(CC) SPU/src/io.cpp SPU/src/SPU.cpp SPU/src/operation.cpp SPU/src/stack.cpp SPU/src/complete_op_from_file.cpp $(FLAGS) -I./SPU/include -o $(TARGET_SPU)

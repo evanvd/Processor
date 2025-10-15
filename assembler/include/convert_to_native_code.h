@@ -33,3 +33,4 @@ bool ComparePush(char* assembler_text, asm_t* assembler);
 bool ComparePushR(char* assembler_text, asm_t* assembler);
 bool ComparePopR(char* assembler_text, asm_t* assembler);
 bool CompareJump(char* assembler_text, asm_t* assembler);
+bool CompareJB(char* assembler_text, asm_t* assembler);

@@ -34,6 +34,7 @@ void CallOperation(processor_t* spu)
             simple_op[index].operation(&spu->stack_data);
         }
     }
+    
 
     if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
@@ -53,10 +54,10 @@ void CallOperation(processor_t* spu)
     }
     else if (spu->read_data[spu->instruction_pointer] == OP_JMP)
     {
-        // TODO JMP()
+        StackJump(spu, spu->read_data[++spu->instruction_pointer]);
     }
     else
     {
-        printf("SYNTAX ERROR\n");
+        printf("SYNTAX ERROR ip\n"); // TODO Return sth
     }
 }
