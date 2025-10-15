@@ -10,7 +10,6 @@ void StackPush(stack_t* stk, int element)
         stk->capacity++;
         stk->stack[stk->capacity + 1] = CANARY_VALUE;
     }
-    printf("\tel %d\n",element);
     stk->size++;
     stk->stack[stk->size] = element;
     StackVerify(stk);    
@@ -53,7 +52,7 @@ void StackSub(stack_t* stk)
     }
     int num1 = StackPop(stk);
     int num2 = StackPop(stk);
-    StackPush(stk, num1 - num2);
+    StackPush(stk, num2 - num1);
 }
 
 void StackAdd(stack_t* stk)
@@ -113,5 +112,4 @@ void StackJB (processor_t* spu, int adr)
     {
         spu->instruction_pointer = (size_t)adr;
     }
-    
 }

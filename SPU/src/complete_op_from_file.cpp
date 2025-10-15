@@ -32,17 +32,15 @@ void RunCode(processor_t* spu)
     }
 }
 
-void CallOperation(processor_t* spu)
+stackError CallOperation(processor_t* spu)
 {
-    extern operation simple_op[];
-    extern arg_operation args_operation [];
-
     for (size_t index = 0; index < simple_op_count; index++)
     {
         if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
         {
             printf("SUCCESS op_index %d\n", simple_op[index].operation_code);
             simple_op[index].operation(&spu->stack_data);
+            return NoErr;
         }
     }
     
@@ -51,19 +49,21 @@ void CallOperation(processor_t* spu)
         if(spu->read_data[spu->instruction_pointer] == args_operation[index].operation_code)
         {
             args_operation[index].operation(spu, spu->read_data[++spu->instruction_pointer]);
+            return NoErr;
         }
     }
     
     if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
         StackPush(&spu->stack_data, spu->read_data[++spu->instruction_pointer]);
+        return NoErr;
     }  
     else if(spu->read_data[spu->instruction_pointer] == OP_POP)
     {
         printf("%d\n", StackPop(&spu->stack_data));
+        return NoErr;
     }
-    else
-    {
-        printf("SYNTAX ERROR ip\n"); // TODO Return sth
-    }
+    
+    printf("SYNTAX ERROR ip\n");
+    return SyntaxError; // TODO Return sth
 }

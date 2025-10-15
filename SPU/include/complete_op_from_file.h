@@ -38,6 +38,4 @@ struct arg_operation
     opr_args_fn_t operation = NULL;
 };
 void RunCode(processor_t* spu);
-void CallOperation(processor_t* spu);
-
-
+stackError CallOperation(processor_t* spu);

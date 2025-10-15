@@ -12,7 +12,8 @@ enum stackError
     NoErr = -1,
     LeftCanaryErr = 1,
     RightCanaryErr = 2,
-    Nullstack = 3
+    Nullstack = 3,
+    SyntaxError = 4
 };
 
 typedef struct stack_t
