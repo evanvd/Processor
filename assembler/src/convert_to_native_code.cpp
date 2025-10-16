@@ -3,6 +3,20 @@
 #include <string.h>
 #include "convert_to_native_code.h"
 
+static args_fn op_arg[] = {ComparePush, ComparePopR, ComparePushR, CompareJump, CompareJB};
+static operation operation [] = 
+{
+    {.op_name = "POP", .operation_code = OP_POP},
+    {.op_name = "DUMP", .operation_code = OP_DUMP},
+    {.op_name = "MUL", .operation_code = OP_MUL},
+    {.op_name = "SUB", .operation_code = OP_SUB},
+    {.op_name = "OUT", .operation_code = OP_OUT},
+    {.op_name = "DIV", .operation_code = OP_DIV},
+    {.op_name = "HLT", .operation_code = OP_HLT}
+};
+const int op_args_count = 5;
+const int simple_op_count = 7;
+
 void ConvertToNative(asm_t* assembler)
 {
      
@@ -20,20 +34,8 @@ void ConvertToNative(asm_t* assembler)
 
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
 {
-
-    args_fn op_arg[] = {ComparePush, ComparePopR, ComparePushR, CompareJump};
-    operation operation [] = 
-    {
-        {.op_name = "POP", .operation_code = OP_POP},
-        {.op_name = "DUMP", .operation_code = OP_DUMP},
-        {.op_name = "MUL", .operation_code = OP_MUL},
-        {.op_name = "SUB", .operation_code = OP_SUB},
-        {.op_name = "OUT", .operation_code = OP_OUT},
-        {.op_name = "DIV", .operation_code = OP_DIV},
-        {.op_name = "HLT", .operation_code = OP_HLT}
-    };
     
-    for (size_t operation_index = 0; operation_index < 7; operation_index++)
+    for (size_t operation_index = 0; operation_index < simple_op_count; operation_index++)
     {
         if (strcmp(assembler_text, operation[operation_index].op_name) == 0)
         {
@@ -41,7 +43,7 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
             return NoErr;
         }
     }
-    for (size_t function_index = 0; function_index < 4; function_index++) // TODO remove magic number
+    for (size_t function_index = 0; function_index < op_args_count; function_index++) // TODO remove magic number
     {
         if (op_arg[function_index](assembler_text, assembler))
         {
@@ -116,7 +118,7 @@ bool CompareJump(char* assembler_text, asm_t* assembler)
 }
 bool CompareJB(char* assembler_text, asm_t* assembler)
 {
-    if(strncmp(assembler_text, "JB", 3) == 0)
+    if(strncmp(assembler_text, "JB", 2) == 0)
     {  
         char* number = assembler_text + 2;
         assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
