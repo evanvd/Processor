@@ -58,12 +58,21 @@ stackError CallOperation(processor_t* spu)
             return NoErr;
         }
     }
-    
     if(spu->read_data[spu->instruction_pointer] == OP_PUSH)
     {
         StackPush(&spu->stack_data, spu->read_data[++spu->instruction_pointer]);
         return NoErr;
+    }
+    if(spu->read_data[spu->instruction_pointer] == OP_CALL)
+    {
+        StackCall(spu, spu->read_data[++spu->instruction_pointer]);
+        return NoErr;
     }  
+    else if(spu->read_data[spu->instruction_pointer] == OP_RET)
+    {
+        StackRet(spu);
+        return NoErr;
+    }
     else if(spu->read_data[spu->instruction_pointer] == OP_RET)
     {
         StackRet(spu);
@@ -74,6 +83,6 @@ stackError CallOperation(processor_t* spu)
         return Exit;
     }
     
-    printf("SYNTAX ERROR ip\n");
+    printf("SYNTAX ERROR ip %d op_code %d\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
     return SyntaxError;
 }

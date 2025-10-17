@@ -32,12 +32,12 @@ void FirstPass(asm_t* assembler)
         }
         ++assembler->instruction_pointer;
     }
-    assembler->instruction_pointer = 0;
 }
 
 void ConvertToNative(asm_t* assembler)
 {
     FirstPass(assembler);
+    assembler->instruction_pointer = 0;
     for (size_t asm_index = 0; assembler->instruction_pointer < assembler->size; asm_index++, assembler->instruction_pointer++)
     {    
         if (assembler->asm_code[asm_index] [0] == '\0' || assembler->asm_code[asm_index][0] == ':')
@@ -154,7 +154,7 @@ bool CompareCall(char* assembler_text, asm_t* assembler)
     if(strncmp(assembler_text, "CALL", 4) == 0)
     {  
         char* number = assembler_text + 5;
-        assembler->native_code[assembler->instruction_pointer] = OP_JB;
+        assembler->native_code[assembler->instruction_pointer] = OP_CALL;
         if (number[0] == ':')
         {
            assembler->native_code[++assembler->instruction_pointer] = (int)labels[atoi(number + 1)];
