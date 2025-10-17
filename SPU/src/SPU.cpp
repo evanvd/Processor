@@ -6,7 +6,7 @@ int main()
 {
     processor_t spu = {};
     InitSPU(&spu,"native_code.bin");
-    PrintMatrix(spu.read_data,spu.size);
+    //PrintMatrix(spu.read_data,spu.size);
 
     RunCode(&spu);
     DestroySPU(&spu);

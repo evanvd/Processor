@@ -32,6 +32,7 @@ struct processor_t
     size_t size = 0;
     int regs [50] = {};
     size_t instruction_pointer = 0;
+    stack_t ret_addr = {};
     stack_t stack_data = {};
 };
 

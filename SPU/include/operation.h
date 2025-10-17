@@ -17,4 +17,7 @@ void StackPOPR(processor_t* spu, int reg);
 
 void StackJump(processor_t* spu, int adr);
 void StackJB (processor_t* spu, int adr);
+
+void StackRet(processor_t* spu);
+void StackCall(processor_t* spu, int adr);
 #endif

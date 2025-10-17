@@ -104,7 +104,7 @@ void StackJump(processor_t* spu, int adr)
 {
     spu->instruction_pointer = (size_t)adr;
 }
-void StackJB (processor_t* spu, int adr)
+void StackJB(processor_t* spu, int adr)
 {
     int n1 = StackPop(&spu->stack_data);
     int n2 = StackPop(&spu->stack_data);
@@ -112,4 +112,17 @@ void StackJB (processor_t* spu, int adr)
     {
         spu->instruction_pointer = (size_t)adr;
     }
+}
+
+
+void StackCall(processor_t* spu, int adr)
+{
+    StackPush(&spu->ret_addr, (int)spu->instruction_pointer);
+    StackJump(spu, adr);
+}
+
+
+void StackRet(processor_t* spu)
+{
+    StackJump(spu, StackPop(&spu->ret_addr));
 }
