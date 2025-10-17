@@ -18,7 +18,9 @@ enum op_code
     OP_PUSHR = 42,
     OP_POPR = 33,
     OP_JMP = 50,
-    OP_JB = 52
+    OP_JB = 52,
+    OP_CALL = 69,
+    OP_RET = 72
 };
 
 typedef void (*operation_fn_t) (stack_t*);

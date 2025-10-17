@@ -149,3 +149,21 @@ bool CompareJB(char* assembler_text, asm_t* assembler)
     }
     return false;
 }
+bool CompareCall(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "CALL", 4) == 0)
+    {  
+        char* number = assembler_text + 5;
+        assembler->native_code[assembler->instruction_pointer] = OP_JB;
+        if (number[0] == ':')
+        {
+           assembler->native_code[++assembler->instruction_pointer] = (int)labels[atoi(number + 1)];
+        }
+        else 
+        {
+            assembler->native_code[++assembler->instruction_pointer] = atoi(number);
+        }
+        return true;
+    }
+    return false; 
+}
