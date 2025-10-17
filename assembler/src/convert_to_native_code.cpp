@@ -12,7 +12,7 @@ void FirstPass(asm_t* assembler)
         {
             printf("strlen1 %lu, strlen2 %lu\n", strlen(assembler->asm_code[instruction_index]), strlen(op_arg[index].op_name));
             if((strlen(assembler->asm_code[instruction_index]) > strlen(op_arg[index].op_name)) &
-            (strncmp(assembler->asm_code[instruction_index], op_arg[index].op_name, strlen(op_arg[index].op_name)) == 0)) // TODO better strcmp 
+            (strncmp(assembler->asm_code[instruction_index], op_arg[index].op_name, strlen(op_arg[index].op_name)) == 0))  
             {
                 printf("%s\n", assembler->asm_code[instruction_index]);
                 assembler->native_code = (int*)realloc(assembler->native_code, (assembler->size + 1) * sizeof(int));
@@ -38,7 +38,7 @@ void FirstPass(asm_t* assembler)
 void ConvertToNative(asm_t* assembler)
 {
     FirstPass(assembler);
-    for (size_t asm_index = 0; assembler->instruction_pointer < assembler->size - 5; asm_index++, assembler->instruction_pointer++)
+    for (size_t asm_index = 0; assembler->instruction_pointer < assembler->size; asm_index++, assembler->instruction_pointer++)
     {    
         if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == ReadError)
         {
@@ -68,7 +68,6 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
     }
     return ReadError;
 }
-
 
 
 
