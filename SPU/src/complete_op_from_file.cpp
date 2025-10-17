@@ -9,7 +9,8 @@ static operation simple_op[] =
     {.operation_code = OP_DIV, .operation = StackDiv},
     {.operation_code = OP_ADD, .operation = StackAdd},
     {.operation_code = OP_SUB, .operation = StackSub},
-    
+    {.operation_code = OP_OUT, .operation = StackDump},
+
 };
 
 static arg_operation args_operation [] =
@@ -20,7 +21,7 @@ static arg_operation args_operation [] =
     {.operation_code = OP_JB, .operation = StackJB},
 };
 
-const size_t simple_op_count = 5;
+const size_t simple_op_count = 6;
 const size_t args_op_count = 4;
 
 void RunCode(processor_t* spu)
@@ -28,7 +29,11 @@ void RunCode(processor_t* spu)
     for (; spu->instruction_pointer < spu->size; spu->instruction_pointer++)
     {
         printf("ip %lu op %d\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
-        CallOperation(spu);
+        if(CallOperation(spu) == Exit)
+        {
+            printf("success");
+            break;
+        }
     }
 }
 
@@ -62,6 +67,10 @@ stackError CallOperation(processor_t* spu)
     {
         printf("%d\n", StackPop(&spu->stack_data));
         return NoErr;
+    }
+    else if (spu->read_data[spu->instruction_pointer] == OP_HLT)
+    {
+        return Exit;
     }
     
     printf("SYNTAX ERROR ip\n");

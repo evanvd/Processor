@@ -10,7 +10,7 @@ void FirstPass(asm_t* assembler)
     {
         for (size_t index = 0; index < op_args_count; index++)
         {
-            printf("strlen1 %lu, strlen2 %lu\n", strlen(assembler->asm_code[instruction_index]), strlen(op_arg[index].op_name));
+            // printf("strlen1 %lu, strlen2 %lu\n", strlen(assembler->asm_code[instruction_index]), strlen(op_arg[index].op_name));
             if((strlen(assembler->asm_code[instruction_index]) > strlen(op_arg[index].op_name)) &
             (strncmp(assembler->asm_code[instruction_index], op_arg[index].op_name, strlen(op_arg[index].op_name)) == 0))  
             {
@@ -40,6 +40,11 @@ void ConvertToNative(asm_t* assembler)
     FirstPass(assembler);
     for (size_t asm_index = 0; assembler->instruction_pointer < assembler->size; asm_index++, assembler->instruction_pointer++)
     {    
+        if (assembler->asm_code[asm_index] [0] == '\0' || assembler->asm_code[asm_index][0] == ':')
+        {
+            continue;
+        }
+        
         if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == ReadError)
         {
             printf("SYNTAX ERROR %s \n", assembler->asm_code[asm_index]);
@@ -59,7 +64,7 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
             return NoErr;
         }
     }
-    for (size_t function_index = 0; function_index < op_args_count; function_index++) // TODO remove magic number
+    for (size_t function_index = 0; function_index < op_args_count; function_index++) 
     {
         if (op_arg[function_index].fn(assembler_text, assembler))
         {
@@ -115,7 +120,7 @@ bool CompareJump(char* assembler_text, asm_t* assembler)
         assembler->native_code[assembler->instruction_pointer] = OP_JMP;
         if (number[0] == ':')
         {
-            assembler->native_code[++assembler->instruction_pointer] = labels[atoi(number + 1)];
+            assembler->native_code[++assembler->instruction_pointer] = (int)labels[atoi(number + 1)];
 
         }
         else 
@@ -134,7 +139,7 @@ bool CompareJB(char* assembler_text, asm_t* assembler)
         assembler->native_code[assembler->instruction_pointer] = OP_JB;
         if (number[0] == ':')
         {
-           assembler->native_code[++assembler->instruction_pointer] = labels[atoi(number + 1)];
+           assembler->native_code[++assembler->instruction_pointer] = (int)labels[atoi(number + 1)];
         }
         else 
         {

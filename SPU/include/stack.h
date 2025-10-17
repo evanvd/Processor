@@ -10,6 +10,7 @@ const int POISON_VALUE = 0xDEAD;
 enum stackError 
 {
     NoErr = -1,
+    Exit = 0,
     LeftCanaryErr = 1,
     RightCanaryErr = 2,
     Nullstack = 3,

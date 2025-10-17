@@ -20,7 +20,7 @@ enum op_code
 };
 
 
-static size_t labels[10] = {}; // TODO find labels
+static size_t labels[10] = {}; 
 void FindLabels (char* assembler_text);
 typedef bool (*args_fn) (char*, asm_t*);
 
