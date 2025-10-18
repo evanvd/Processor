@@ -10,7 +10,6 @@ void FirstPass(asm_t* assembler)
     {
         for (size_t index = 0; index < op_args_count; index++)
         {
-            // printf("strlen1 %lu, strlen2 %lu\n", strlen(assembler->asm_code[instruction_index]), strlen(op_arg[index].op_name));
             if((strlen(assembler->asm_code[instruction_index]) > strlen(op_arg[index].op_name)) &
             (strncmp(assembler->asm_code[instruction_index], op_arg[index].op_name, strlen(op_arg[index].op_name)) == 0))  
             {
@@ -45,12 +44,13 @@ void ConvertToNative(asm_t* assembler)
             continue;
         }
         
-        if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == ReadError)
+        if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == SyntaxError)
         {
-            printf("SYNTAX ERROR %s \n", assembler->asm_code[asm_index]);
+            printf("SYNTAX ERROR assembler.asm:%lu \n %s\n", asm_index, assembler->asm_code[asm_index]);
+            //break;
         }
-        printf("native index %lu, asm_index %lu size %lu code %d\n", assembler->instruction_pointer, asm_index, assembler->size, 
-            assembler->native_code[assembler->instruction_pointer]);
+        // printf("native index %lu, asm_index %lu size %lu code %d\n", assembler->instruction_pointer, asm_index, assembler->size, 
+        //     assembler->native_code[assembler->instruction_pointer]);
     }
 }
 
@@ -71,7 +71,7 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
             return NoErr; 
         }   
     }
-    return ReadError;
+    return SyntaxError;
 }
 
 

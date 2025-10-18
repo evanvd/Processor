@@ -75,7 +75,7 @@ void StackDiv(stack_t* stk)
     }
     int num1 = StackPop(stk);
     int num2 = StackPop(stk);
-    StackPush(stk, num1 / num2);
+    StackPush(stk, num2 / num1);
 }
 void StackPUSHR(processor_t* spu, int reg)
 {

@@ -83,6 +83,6 @@ stackError CallOperation(processor_t* spu)
         return Exit;
     }
     
-    printf("SYNTAX ERROR ip %d op_code %d\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
+    printf("SYNTAX ERROR ip %lu op_code %d\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
     return SyntaxError;
 }

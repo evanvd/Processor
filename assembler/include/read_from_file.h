@@ -18,7 +18,8 @@ enum assembler_err
     BadFilenameErr = 0, // TODO add some check
     NoErr = -1,
     FileNull = 1,
-    ReadError = 2
+    ReadError = 2,
+    SyntaxError = 3
 };
 
 void GetFromFile(asm_t *assembler);

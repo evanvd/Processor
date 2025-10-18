@@ -49,7 +49,7 @@ bool CompareCall(char* assembler_text, asm_t* assembler);
 //static args_fn op_arg[] = {ComparePush, ComparePopR, ComparePushR, CompareJump, CompareJB};
 
 const int op_args_count = 6;
-const int simple_op_count = 8;
+const int simple_op_count = 9;
 
 static operation operation [simple_op_count] = 
 {
@@ -60,8 +60,8 @@ static operation operation [simple_op_count] =
     {.op_name = "OUT", .operation_code = OP_OUT},
     {.op_name = "DIV", .operation_code = OP_DIV},
     {.op_name = "HLT", .operation_code = OP_HLT},
-    {.op_name = "RET", .operation_code = OP_RET}
-
+    {.op_name = "RET", .operation_code = OP_RET},
+    {.op_name = "ADD", .operation_code = OP_ADD}
 };
 
 static args_op op_arg[op_args_count] =
