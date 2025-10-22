@@ -1,11 +1,13 @@
 #include "stack.h"
 #include <assert.h>
+#include <math.h>
 #include <string.h>
 
+const double EPS = 10e-6;
 void StackInit(stack_t* stk,size_t capacity)
 {
     stk->capacity = capacity;
-    stk->stack = (int*)calloc(stk->capacity + 2, sizeof(int));
+    stk->stack = (double*)calloc(stk->capacity + 2, sizeof(double));
 
     if(stk->stack == NULL)
     {
@@ -28,14 +30,14 @@ stackError StackVerify(stack_t* stk) // TODO verify in main
     if (stk == NULL) return Nullstack;
     if (stk->stack == NULL) return Nullstack;
     
-    if (stk->stack[stk->capacity + 1] != CANARY_VALUE)
+    if (fabs(stk->stack[stk->capacity + 1] - CANARY_VALUE) > EPS)
     {
         printf("Right canary value has been changed\n");
         stk->stack_error = RightCanaryErr;  
         return RightCanaryErr;      
     }
 
-    else if (stk->stack[0] != CANARY_VALUE)
+    else if (fabs(stk->stack[0] - CANARY_VALUE) > EPS)
     {
         printf("Left canary value has been changed\n");
         stk->stack_error = LeftCanaryErr;
@@ -50,12 +52,12 @@ void StackDump(stack_t* stk)
     printf("\ncapacity - %lu\n", stk->capacity);
     printf("size - %lu\n", stk->size);
 
-    printf("Left canary %d  should be 12648430\n\n", stk->stack[0]);
+    printf("Left canary %f  should be 12648430\n\n", stk->stack[0]);
     for (size_t index = 1; index <= stk->size; index++)
     {
-        printf("stack[%lu] = %d\n", index, stk->stack[index]);
+        printf("stack[%lu] = %f\n", index, stk->stack[index]);
     }
-    printf("\nRight canary %d  should be 12648430\n", stk->stack[stk->capacity + 1]);
+    printf("\nRight canary %f  should be 12648430\n", stk->stack[stk->capacity + 1]);
     StackVerify(stk);   
 }
 

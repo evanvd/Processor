@@ -16,4 +16,10 @@ void GetFromFile(processor_t* spu);
 void PrintMatrix(int* data, const size_t size);
 void DestroySPU(processor_t* spu);
 
+struct RAM 
+{
+    double* data;
+};
+
+
 #endif

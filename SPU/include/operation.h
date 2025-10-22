@@ -4,8 +4,8 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
-void StackPush(stack_t* spu, int element);
-int StackPop(stack_t* data);
+void StackPush(stack_t* stk, double element);
+double StackPop(stack_t* stk);
 
 void CallFromConsole(stack_t* stk, char* console_input);
 void StackMul(stack_t* stk);

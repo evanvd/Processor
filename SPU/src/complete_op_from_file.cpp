@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "complete_op_from_file.h"
+#include <math.h>
 
 static operation simple_op[] = 
 {
@@ -29,7 +30,7 @@ void RunCode(processor_t* spu)
 {
     for (; spu->instruction_pointer < spu->size; spu->instruction_pointer++)
     {
-        printf("ip %lu op %d\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
+        printf("ip %lu op %f\n", spu->instruction_pointer, spu->read_data[spu->instruction_pointer]);
         if(CallOperation(spu) == Exit)
         {
             printf("success");
@@ -42,7 +43,7 @@ stackError CallOperation(processor_t* spu)
 {
     for (size_t index = 0; index < simple_op_count; index++)
     {
-        if(spu->read_data[spu->instruction_pointer] == simple_op[index].operation_code)
+        if(fabs(spu->read_data[spu->instruction_pointer] - simple_op[index].operation_code) < EPS)
         {
             printf("SUCCESS op_index %d\n", simple_op[index].operation_code);
             simple_op[index].operation(&spu->stack_data);
@@ -52,7 +53,7 @@ stackError CallOperation(processor_t* spu)
     
     for (size_t index = 0; index < args_op_count; index++)
     {
-        if(spu->read_data[spu->instruction_pointer] == args_operation[index].operation_code)
+        if(fabs(spu->read_data[spu->instruction_pointer] - args_operation[index].operation_code) < EPS)
         {
             args_operation[index].operation(spu, spu->read_data[++spu->instruction_pointer]);
             return NoErr;

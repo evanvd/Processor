@@ -18,7 +18,8 @@ enum op_code
     OP_JMP = 50,
     OP_JB = 52,
     OP_CALL = 69,
-    OP_RET = 72
+    OP_RET = 72,
+    OP_POPM = 51
 };
 
 
@@ -76,6 +77,6 @@ static args_op op_arg[op_args_count] =
 
 
 
-void ConvertToNative(asm_t* assembler);
+assembler_err ConvertToNative(asm_t* assembler);
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text);
 void FirstPass(asm_t* assembler);
