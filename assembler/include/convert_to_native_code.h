@@ -18,7 +18,9 @@ enum op_code
     OP_JMP = 50,
     OP_JB = 52,
     OP_CALL = 69,
-    OP_RET = 72
+    OP_RET = 72,
+    OP_POPM = 51,
+    OP_POPM_REG = 53,
 };
 
 
@@ -41,14 +43,16 @@ struct args_op
 
 bool ComparePush(char* assembler_text, asm_t* assembler);
 bool ComparePushR(char* assembler_text, asm_t* assembler);
+bool ComparePushM(char* assembler_text, asm_t* assembler);
 bool ComparePopR(char* assembler_text, asm_t* assembler);
+bool ComparePopM(char* assembler_text, asm_t* assembler);
 bool CompareJump(char* assembler_text, asm_t* assembler);
 bool CompareJB(char* assembler_text, asm_t* assembler);
 bool CompareCall(char* assembler_text, asm_t* assembler);
 
 //static args_fn op_arg[] = {ComparePush, ComparePopR, ComparePushR, CompareJump, CompareJB};
 
-const int op_args_count = 6;
+const int op_args_count = 8;
 const int simple_op_count = 9;
 
 static operation operation [simple_op_count] = 
@@ -72,10 +76,13 @@ static args_op op_arg[op_args_count] =
     {.op_name = "JMP", .operation_code = OP_JMP, .fn = CompareJump},
     {.op_name = "JB", .operation_code = OP_JB, .fn = CompareJB},
     {.op_name = "CALL", .operation_code = OP_CALL, .fn = CompareCall},
+    {.op_name = "POPM",  .fn = ComparePopM},
+    {.op_name = "PUSHM", .fn = ComparePushM},
+
 }; 
 
 
 
-void ConvertToNative(asm_t* assembler);
+assembler_err ConvertToNative(asm_t* assembler);
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text);
 void FirstPass(asm_t* assembler);

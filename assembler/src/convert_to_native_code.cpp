@@ -33,7 +33,7 @@ void FirstPass(asm_t* assembler)
     }
 }
 
-void ConvertToNative(asm_t* assembler)
+assembler_err ConvertToNative(asm_t* assembler)
 {
     FirstPass(assembler);
     assembler->instruction_pointer = 0;
@@ -46,12 +46,11 @@ void ConvertToNative(asm_t* assembler)
         
         if(NativeTranslator(assembler, assembler->asm_code[asm_index]) == SyntaxError)
         {
-            printf("SYNTAX ERROR assembler.asm:%lu \n %s\n", asm_index, assembler->asm_code[asm_index]);
-            //break;
+            printf("SYNTAX ERROR assembler.asm:%lu \n %s\n", asm_index + 1, assembler->asm_code[asm_index]);
+            return SyntaxError;
         }
-        // printf("native index %lu, asm_index %lu size %lu code %d\n", assembler->instruction_pointer, asm_index, assembler->size, 
-        //     assembler->native_code[assembler->instruction_pointer]);
     }
+    return NoErr;
 }
 
 assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
@@ -73,8 +72,6 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
     }
     return SyntaxError;
 }
-
-
 
 bool ComparePush(char* assembler_text, asm_t* assembler)
 {
@@ -162,6 +159,50 @@ bool CompareCall(char* assembler_text, asm_t* assembler)
         else 
         {
             assembler->native_code[++assembler->instruction_pointer] = atoi(number);
+        }
+        return true;
+    }
+    return false; 
+}
+
+bool ComparePopM(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "POPM", 4) == 0)
+    {  
+        char* argument = assembler_text + 5;
+        char* reg = NULL;
+        if (reg[1] == 'X')
+        {
+            assembler->native_code[assembler->instruction_pointer] = OP_POPM_REG; 
+            assembler->native_code[++assembler->instruction_pointer] = (int)reg[0] - (int)'A';
+        }
+        else
+        {
+            assembler->native_code[assembler->instruction_pointer] = OP_POPM;
+            assembler->native_code[++assembler->instruction_pointer] = atoi(reg);
+        }
+        return true;
+    }
+    return false; 
+}
+
+bool ComparePushM(char* assembler_text, asm_t* assembler)
+{
+    if(strncmp(assembler_text, "PUSHM", 5) == 0)
+    {  
+        char* argument = assembler_text + 6;
+        char* reg = NULL;
+        sscanf(argument, "[%s]", reg);
+        
+        if (reg[1] == 'X')
+        {
+            assembler->native_code[assembler->instruction_pointer] = OP_POPM_REG; 
+            assembler->native_code[++assembler->instruction_pointer] = (int)reg[0] - (int)'A';
+        }
+        else
+        {
+            assembler->native_code[assembler->instruction_pointer] = OP_POPM;
+            assembler->native_code[++assembler->instruction_pointer] = atoi(reg);
         }
         return true;
     }
