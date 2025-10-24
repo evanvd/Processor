@@ -26,7 +26,7 @@ enum op_code
 typedef void (*operation_fn_t) (stack_t*);
 typedef void (*opr_args_fn_t) (processor_t*, int);
 
-
+const int EPS = 10e-6;
 
 struct operation
 {

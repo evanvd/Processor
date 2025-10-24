@@ -19,7 +19,7 @@ enum stackError
 
 typedef struct stack_t
 {
-    int* stack = {};
+    double* stack = {};
     size_t size = 0;
     size_t capacity = 0;
     stackError stack_error = NoErr;
@@ -27,13 +27,14 @@ typedef struct stack_t
 
 struct processor_t
 {
-    int* read_data = {};
+    double* read_data = {};
     FILE* native_file = NULL;
     size_t size = 0;
-    int regs [50] = {};
+    double regs [10] = {};
     size_t instruction_pointer = 0;
     stack_t ret_addr = {};
     stack_t stack_data = {};
+    double* RAM = NULL;
 };
 
 
