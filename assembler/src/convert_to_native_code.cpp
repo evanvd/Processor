@@ -191,18 +191,18 @@ bool ComparePushM(char* assembler_text, asm_t* assembler)
     if(strncmp(assembler_text, "PUSHM", 5) == 0)
     {  
         char* argument = assembler_text + 6;
-        char* reg = NULL;
-        sscanf(argument, "[%s]", reg);
-        
-        if (reg[1] == 'X')
+
+        if (argument[2] == 'X')
         {
+            char* reg = NULL;    
             assembler->native_code[assembler->instruction_pointer] = OP_POPM_REG; 
             assembler->native_code[++assembler->instruction_pointer] = (int)reg[0] - (int)'A';
         }
         else
         {
+            int adr;
             assembler->native_code[assembler->instruction_pointer] = OP_POPM;
-            assembler->native_code[++assembler->instruction_pointer] = atoi(reg);
+            assembler->native_code[++assembler->instruction_pointer] = adr;
         }
         return true;
     }
