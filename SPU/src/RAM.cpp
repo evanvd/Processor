@@ -2,6 +2,6 @@
 
 struct RAM 
 {
-    double* data;
+    double* data; // TODO size?
 };
 

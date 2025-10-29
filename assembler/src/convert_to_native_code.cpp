@@ -63,6 +63,7 @@ assembler_err NativeTranslator(asm_t* assembler, char* assembler_text)
             return NoErr;
         }
     }
+    
     for (size_t function_index = 0; function_index < op_args_count; function_index++) 
     {
         if (op_arg[function_index].fn(assembler_text, assembler))

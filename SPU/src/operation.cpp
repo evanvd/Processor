@@ -117,7 +117,7 @@ void StackJB(processor_t* spu, int adr)
 
 void StackCall(processor_t* spu, int adr)
 {
-    printf("JMP %d\n", adr);
+    //printf("JMP %d\n", adr);
     StackPush(&spu->ret_addr, (int)spu->instruction_pointer);
     StackJump(spu, adr);
 }
@@ -126,5 +126,5 @@ void StackCall(processor_t* spu, int adr)
 void StackRet(processor_t* spu)
 {
     StackJump(spu, (int)StackPop(&spu->ret_addr));
-    printf("JMP %f\n", StackPop(&spu->ret_addr));
+    //printf("JMP %f\n", StackPop(&spu->ret_addr));
 }

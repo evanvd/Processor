@@ -17,8 +17,8 @@ static operation simple_op[] =
 static arg_operation args_operation [] =
 {
     {.operation_code = OP_JMP, .operation = StackJump},
-    {.operation_code = OP_PUSHR, .operation = StackPUSHR},
-    {.operation_code = OP_POPR, .operation = StackPOPR},
+    {.operation_code = OP_PUSHR, .operation = StackPUSHR}, // TODO StackPushR
+    {.operation_code = OP_POPR, .operation = StackPOPR},   // TODO what is stack??
     {.operation_code = OP_JB, .operation = StackJB},
     {.operation_code = OP_CALL, .operation = StackCall}
 };
@@ -41,7 +41,7 @@ void RunCode(processor_t* spu)
 
 stackError CallOperation(processor_t* spu)
 {
-    for (size_t index = 0; index < simple_op_count; index++)
+    for (size_t index = 0; index < simple_op_count; index++) // TODO opIdx
     {
         if(fabs(spu->read_data[spu->instruction_pointer] - simple_op[index].operation_code) < EPS)
         {
